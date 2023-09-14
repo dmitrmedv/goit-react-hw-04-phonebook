@@ -4,19 +4,12 @@ import Filter from './Filter/Filter';
 import { useState, useEffect } from 'react';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] =
+    useState(JSON.parse(localStorage.getItem('contacts'))) ?? [];
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem('contacts')) {
-      setContacts(JSON.parse(localStorage.getItem('contacts')));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (contacts.length) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   const filterContact = filterName => setFilter(filterName);
